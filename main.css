@@ -1,0 +1,8 @@
+.task:hover {
+  text-decoration: line-through;
+  cursor: pointer;
+}
+
+.active {
+  color: red;
+}
