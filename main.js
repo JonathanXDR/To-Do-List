@@ -1,3 +1,4 @@
+//Click button with enter-key
 let input = document.getElementById("input");
 input.addEventListener("keyup", function (event) {
   if (event.keyCode === 13) {
@@ -10,27 +11,33 @@ let newNummber = 0;
 
 let list = document.getElementById("toDo");
 
-function trigger(el) {
+function trigger(element) {
   let taskName = document.getElementById("input");
   console.log(taskName);
 
   if (taskName.value == "") {
     window.alert("Taskname not specified!");
   } else {
+    //Get random number
     newNummber++;
     let task = document.createElement("li");
+
+    //Style task
     task.className = "task";
     task.id = "task" + newNummber;
 
-    let element = el;
     task.setAttribute("type", "checkbox");
-    task.onclick =  moveTask(element);
-
+    task.setAttribute("onclick", 'reply_click( " ' + this.id + ' " )');
     task.appendChild(document.createTextNode(taskName.value));
     list.appendChild(task);
 
+    //Delete taskname from input, after Button was pressed
     taskName.value = "";
   }
+}
+
+function reply_click(clicked_id) {
+  alert($(this).attr('id')); 
 }
 
 let taskStatus = false;
@@ -41,7 +48,7 @@ function moveTask(element) {
     taskOngoing();
   } else {
     taskDone(element);
-    console.log(element)
+    console.log(element);
   }
 }
 
@@ -51,7 +58,13 @@ function taskOngoing() {
 
 function taskDone(element) {
   taskStatus = true;
-  window.alert("this");
-  const el = document.getElementById(element);
-  list.removeChild(el);
+
+  // Get the last <li> element ("Milk") of <ul> with id="myList2"
+  var itm = document.getElementById("toDo").lastChild;
+  list.removeChild(element);
+  // Copy the <li> element and its child nodes
+  var cln = itm.cloneNode(true);
+
+  // Append the cloned <li> element to <ul> with id="myList1"
+  document.getElementById("done").appendChild(cln);
 }
