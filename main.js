@@ -27,7 +27,7 @@ function trigger(element) {
     task.id = "task" + newNummber;
 
     task.setAttribute("type", "checkbox");
-    task.setAttribute("onclick", 'reply_click( " ' + this.id + ' " )');
+    task.setAttribute("onclick", "moveTask()"); //'reply_click( " ' + this.id + ' " )');
     task.appendChild(document.createTextNode(taskName.value));
     list.appendChild(task);
 
@@ -37,18 +37,19 @@ function trigger(element) {
 }
 
 function reply_click(clicked_id) {
-  alert($(this).attr('id')); 
+  alert($(this).attr("id"));
 }
 
 let taskStatus = false;
 
-function moveTask(element) {
+function moveTask() {
+  //element
   if (taskStatus == true) {
     //set this to false
     taskOngoing();
   } else {
-    taskDone(element);
-    console.log(element);
+    taskDone(); //element
+    console.log(); //element
   }
 }
 
@@ -56,12 +57,14 @@ function taskOngoing() {
   taskStatus = false;
 }
 
-function taskDone(element) {
+function taskDone() {
+  //element
   taskStatus = true;
+  list.removeChild(firstChild);
 
   // Get the last <li> element ("Milk") of <ul> with id="myList2"
-  var itm = document.getElementById("toDo").lastChild;
-  list.removeChild(element);
+  var itm = document.getElementById("toDo").firstChild;
+
   // Copy the <li> element and its child nodes
   var cln = itm.cloneNode(true);
 
