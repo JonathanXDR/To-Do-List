@@ -11,10 +11,8 @@ let newNummber = 0;
 
 let list = document.getElementById("toDo");
 
-function trigger(element) {
+function trigger() {
   let taskName = document.getElementById("input");
-  console.log(taskName);
-
   if (taskName.value == "") {
     window.alert("Taskname not specified!");
   } else {
@@ -27,7 +25,8 @@ function trigger(element) {
     task.id = "task" + newNummber;
 
     task.setAttribute("type", "checkbox");
-    task.setAttribute("onclick", "moveTask()"); //'reply_click( " ' + this.id + ' " )');
+    task.setAttribute("onclick", "taskDone(this)");
+    // task.innerHTML = taskName.value;
     task.appendChild(document.createTextNode(taskName.value));
     list.appendChild(task);
 
@@ -36,37 +35,13 @@ function trigger(element) {
   }
 }
 
-function reply_click(clicked_id) {
-  alert($(this).attr("id"));
-}
-
-let taskStatus = false;
-
-function moveTask() {
+function taskDone(child) {
   //element
-  if (taskStatus == true) {
-    //set this to false
-    taskOngoing();
-  } else {
-    taskDone(); //element
-    console.log(); //element
-  }
-}
-
-function taskOngoing() {
-  taskStatus = false;
-}
-
-function taskDone() {
-  //element
-  taskStatus = true;
-  list.removeChild(firstChild);
-
-  // Get the last <li> element ("Milk") of <ul> with id="myList2"
-  var itm = document.getElementById("toDo").firstChild;
+  
+  list.removeChild(child);
 
   // Copy the <li> element and its child nodes
-  var cln = itm.cloneNode(true);
+  var cln = child.cloneNode(true);
 
   // Append the cloned <li> element to <ul> with id="myList1"
   document.getElementById("done").appendChild(cln);
